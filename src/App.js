@@ -1,26 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import PlayerCard from './PlayerCard.js';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+class Game extends Component {
+  constructor() {
+    super();
+    this.signs = ['rock', 'paper', 'scissors'];
+    this.state = {
+      playerOne: 'rock',
+      playerTwo: 'rock',
+    };
+  };
 
-export default App;
+  randomHand = () => {
+    this.setState({
+      playerOne: this.signs[Math.floor(Math.random()*3)],
+      playerTwo: this.signs[Math.floor(Math.random()*3)],
+    });
+    // console.log(this.state.playerOne);
+    // console.log(this.state.playerTwo);
+  };
+
+  whoWins = () => {
+    let handOne = this.state.playerOne;
+    let handTwo = this.state.playerTwo;
+    console.log(this.state.playerOne);
+    console.log(this.state.playerTwo);
+
+    if(handOne===handTwo) {
+      return 'Tie. Try again!';
+    }
+    else if((handOne === 'rock' && handTwo === 'scissors') ||
+      (handOne === 'paper' && handTwo === 'rock') ||
+      (handOne === 'scissors' && handTwo === 'paper')){
+      return 'Player 1 Wins!';
+    }
+    else{
+      return 'Player 2 Wins!';
+    }
+  };
+
+  render() {
+    return (
+      <div className="style">
+        <div className="player-card">
+          <PlayerCard sign={this.playerOne}/>
+          <PlayerCard sign={this.playerTwo}/>
+        </div>
+        <div className="winner">{this.whoWins()}</div>
+        <button type="button" onClick={this.randomHand}>PLAY</button>
+      </div>
+    );
+  };
+};
+
+export default Game;
