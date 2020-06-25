@@ -16,15 +16,11 @@ class Game extends Component {
       playerOne: this.signs[Math.floor(Math.random()*3)],
       playerTwo: this.signs[Math.floor(Math.random()*3)],
     });
-    // console.log(this.state.playerOne);
-    // console.log(this.state.playerTwo);
   };
 
   whoWins = () => {
     let handOne = this.state.playerOne;
     let handTwo = this.state.playerTwo;
-    console.log(this.state.playerOne);
-    console.log(this.state.playerTwo);
 
     if(handOne===handTwo) {
       return 'Tie. Try again!';
@@ -43,11 +39,11 @@ class Game extends Component {
     return (
       <div className="style">
         <div className="player-card">
-          <PlayerCard sign={this.playerOne}/>
-          <PlayerCard sign={this.playerTwo}/>
+          <PlayerCard sign={this.state.playerOne}/>
+          <PlayerCard sign={this.state.playerTwo}/>
         </div>
         <div className="winner">{this.whoWins()}</div>
-        <button type="button" onClick={this.randomHand}>PLAY</button>
+        <button type="button" onClick={() => this.randomHand()}>PLAY</button>
       </div>
     );
   };
